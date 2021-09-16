@@ -30,6 +30,7 @@ thm2md is a tool to make notes about tryhackme rooms,`while completing it`
 
 ֆ`sudo` `./requirements.sh`
 
+--------
 ### to run it from any location:
  <p id="path">add it to your $PATH</p>
  
@@ -45,7 +46,7 @@ thm2md is a tool to make notes about tryhackme rooms,`while completing it`
 * ֆ thm2md --help
 >or
 * ֆ thm2md -h
-
+--------
 ### run it...
 **↘️** if you added it to your [\$PATH](#path)
 
@@ -57,7 +58,7 @@ thm2md is a tool to make notes about tryhackme rooms,`while completing it`
 
 -------
 ## [output.md](https://github.com/arNparad0x/thm2md/blob/main/extra/output.md)
->room link: https://www.tryhackme.com/room/dailybugle
+>room link: https://tryhackme.com/room/attacktivedirectory
 >
 >option: 1. write questions into a file without answers
 >
