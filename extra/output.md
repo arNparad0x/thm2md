@@ -23,7 +23,7 @@ to Connected. It will also show you your internal IP address.
 
 ![](http://puu.sh/HpeVh/6fc436e1d1.png)
 
-*You're now ready to start hacking! *
+*You're now ready to start hacking!*
 ```
 
 ```
