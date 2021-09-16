@@ -13,6 +13,6 @@ then
 	apt install -y unstable-repo
 	apt install -y pandoc
 else
-	sudo apt install -y curl coreutils nano ncurses-utils jq pandoc
+	sudo apt install -y curl coreutils nano ncurses-bin jq pandoc
 fi
 
