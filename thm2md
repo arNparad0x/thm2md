@@ -1,0 +1,156 @@
+#!/bin/bash
+
+#variants to replace markdown_github: markdown,markdown_mmd,markdown_phpextra,markdown_strict
+noans(){
+read -p 'with name & date?[y/N]:' top
+if [[ $top == 'y' ]]||[[ $top == 'Y' ]]
+then
+	printf "\\033[32mname: "
+	read uname
+	date=$(date  +%d\ %B,\ %Y)
+	curl -s $url | grep '<title>'| sed 's/<\/title>.*/\n/g'| sed 's/<head><title>TryHackMe | /# /g' >> $file
+	echo '' >> $file
+	echo "> $uname | $date" >> $file
+	echo '' >> $file
+	echo '----------------------' >> $file
+	echo '' >> $file
+	q=$(curl -s https://tryhackme.com/api/tasks/$name | jq -r '.data|.[]|.questions|.[].question')
+	echo "$q"|sed 's/$/7659873452387/g'| sed 's/</\n</g'| sed 's/>/>\n/g'| sed 's/ style=".*"//g'|grep -v 'div' | pandoc -f html -t markdown_github 2>/dev/null | sed 's/\\$//g'|sed 's/7659873452387/\n```\n\n```\n/g' >> $file    
+	
+else
+	curl -s $url | grep '<title>'| sed 's/<\/title>.*/\n/g'| sed 's/<head><title>TryHackMe | /# /g' >> $file
+	echo '' >> $file
+	echo '----------------------' >> $file
+	echo '' >> $file
+	q=$(curl -s https://tryhackme.com/api/tasks/$name | jq -r '.data|.[]|.questions|.[].question')
+	echo "$q"|sed 's/$/7659873452387/g'| sed 's/</\n</g'| sed 's/>/>\n/g'| sed 's/ style=".*"//g'|grep -v 'div' | pandoc -f html -t markdown_github 2>/dev/null | sed 's/\\$//g'|sed 's/7659873452387/\n```\n\n```\n/g' >> $file
+fi
+printf "\\033[0m"
+}
+########^√####
+notesinbbyn(){
+echo -e "\\033[34mdo you like to add notes in between answering[Y/n]?\\033[0m"
+printf "\\033[36m?> "
+read enablenote
+echo -e "\\033[34menter command to open your text editor[nano/vim/subl/micro/]"
+printf "\\033[36m$: "
+read editor
+printf "\\033[33m\n"
+printf "\\033[33m"
+echo $(printf "—%.0s" $(seq $(tput cols)))
+printf "\\033[0m"
+for line in $(echo "$q" | sed 's/ /7659873452387/g')
+do
+	echo -e "\\033[34m$line\\033[36m"|sed 's/7659873452387/ /g'|pandoc -f html -t plain
+	echo "$line"|sed 's/7659873452387/ /g'|sed 's/</\n</g'| sed 's/>/>\n/g'| sed 's/ style=".*"//g'|grep -v 'div' | pandoc -f html -t markdown_github 2>/dev/null | sed 's/\\$//g' >> $file	
+	printf "\\033[1;36m[Λиs]:\\033[0;36m "
+	read ans 
+	printf "\\033[0m"
+	echo '```' >> $file
+	echo "$ans" >> $file
+	echo '```' >> $file
+	if [[ $enablenote == "y" ]]||[[ $enablenote == "Y" ]]
+	then
+		printf "\\033[32madd extra note?[y/N]:"
+		read  addnote
+		if [[ $addnote == "y" ]]||[[ $addnote == "Y" ]]
+		then
+			$editor .thmp.md
+			cat .thmp.md >> $file
+			rm .thmp.md
+		fi
+	fi
+	printf "\\033[38;5;242m"
+	echo $(printf "—%.0s" $(seq $(tput cols)))
+	printf "\\033[0m"
+done
+printf "\\033[0m"
+}
+resp(){
+read -p 'with name & date?[Y/n]:' top
+q=$(curl -s https://tryhackme.com/api/tasks/$name | jq -r '.data|.[]|.questions|.[].question')
+if [[ $top == "n" ]]||[[ $top == "N" ]]
+then
+	#x#no name & date=-
+	curl -s $url | grep '<title>'| sed 's/<\/title>.*/\n/g'| sed 's/<head><title>TryHackMe | /# /g' >> $file
+	echo '' >> $file
+	echo '----------------------' >> $file
+	echo '' >> $file
+	notesinbbyn
+else
+	printf "\\033[32mname: "
+	read uname
+	date=$(date  +%d\ %B,\ %Y)
+	curl -s $url | grep '<title>'| sed 's/<\/title>.*/\n/g'| sed 's/<head><title>TryHackMe | /# /g' >> $file
+	echo '' >> $file
+	echo "> $uname | $date" >> $file
+	echo '' >> $file
+	echo '----------------------' >> $file
+	echo '' >> $file
+	notesinbbyn
+fi
+printf "\\033[0m"
+}
+
+
+###################$$$$$$$$$$$$$$$$$##################
+
+if [[ $1 == '--help' ]]||[[ $1 == '-h' ]]
+then
+	echo -e "
+--help or -h is still in development
+-------------------
+how to run thm2md :
+$ \\033[1m./thm2md\\033[0m
+   OR
+$ sh thm2md
+   OR
+$ bash thm2md
+copy 'thm2md' to \$PATH to run it from any directory
+with:
+$ thm2md
+--------------------
+\\033[1;34mcheck for updates on github♥\\033[0m
+\\033[3;4;5;36m github.link.here \\033[0m
+upcoming versions may contain an extra option to load \\033[1;31msubscribed\\033[0m rooms
+this version is just limited to only make .md files for \\033[36mfree rooms\\033[0m
+	"
+else
+	read -p 'enter url of the room: ' url
+	if [[ $url == *"tryhackme.com/room/"* ]]; then
+		name=$(echo $url | sed 's/^.*tryhackme\.com\/room\///g')
+	else
+		name=$url
+	fi
+	echo -e "room:\\033[35m $name \\033[0m"
+	
+	read -p 'enter output filename: ' file
+	echo $(printf "—%.0s" $(seq $(tput cols)))
+	if [[ $(curl -s -I $url | head -1) != *"200"* ]]
+	then
+		echo -e "
+		\\033[31masking for \\033[1mSUBSCRIPTION\\033[0m
+		see more details @ \\033[34m./thm2md --help\\033[0m
+		"
+		echo $(printf "—%.0s" $(seq $(tput cols)))
+		exit
+	fi
+	echo -e "
+	             \\033[1;32m-\ue0b3::ch\\033[4moose a metho\\033[0;1;32mrd::\ue0b1-\\033[0m
+	1. write questions into a file without answers
+	2. prompt for answers and write into file [easy way] 
+	
+	"
+	printf "\\033[1;38;5;232;42mchoose\\033[0;1;32m\ue0b0>\\033[0m "
+	read opt
+	echo $(printf "—%.0s" $(seq $(tput cols)))
+	if [[ $opt == '1' ]]
+	then
+		noans
+	elif [[ $opt == '2' ]]
+	then
+		resp
+	else
+		echo -e "\\033[31merr0r: invalid option\\033[0m"
+	fi
+fi
