@@ -42,6 +42,7 @@ thm2md is a tool to make notes about tryhackme rooms,`while completing it`
 
 ֆ`cp thm2md ~/../usr/bin/`
 
+---------
 ### --help / -h for help
 * ֆ thm2md --help
 >or
