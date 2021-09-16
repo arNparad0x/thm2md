@@ -13,7 +13,7 @@ VPN server of choice and download your configuration file.
 
 
 ```
-ok
+
 ```
 
 
@@ -25,7 +25,7 @@ to Connected. It will also show you your internal IP address.
 
 *You're now ready to start hacking! *
 ```
-start
+
 ```
 
 
@@ -34,7 +34,7 @@ automatically be connected to the TryHackMe Network.
 
 
 ```
-deal
+
 ```
 
 
@@ -42,7 +42,7 @@ Once connected to the VPN, deploy the machine and get hacking!
 
 
 ```
-ok then
+
 ```
 
 
@@ -50,7 +50,7 @@ Install Impacket, Bloodhound and Neo4j
 
 
 ```
-all right
+
 ```
 
 
