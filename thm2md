@@ -119,6 +119,9 @@ $ thm2md
 upcoming versions may contain an extra option to load \\033[1;31msubscribed\\033[0m rooms
 this version is just limited to only make .md files for \\033[36mfree rooms\\033[0m
 	"
+if [[ $cv > $v ]]
+ then echo -e "\\033[31m[⟱] update avilable\\033[0m"
+fi
 else
 	read -p 'enter url of the room: ' url
 	if [[ $url == *"tryhackme.com/room/"* ]]; then
@@ -130,6 +133,9 @@ else
 	
 	read -p 'enter output filename: ' file
 	echo $(printf "—%.0s" $(seq $(tput cols)))
+if [[ $cv > $v ]]
+ then echo -e "\\033[31m[⟱] update avilable\\033[0m"
+fi
 	if [[ $(curl -s -I $url | head -1) != *"200"* ]]
 	then
 		echo -e "
