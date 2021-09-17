@@ -115,7 +115,7 @@ with:
 $ thm2md
 --------------------
 \\033[1;34mcheck for updates on github♥\\033[0m
-\\033[3;4;5;36m github.link.here \\033[0m
+\\033[3;4;5;36m https://github.com/arNparad0x/thm2md \\033[0m
 upcoming versions may contain an extra option to load \\033[1;31msubscribed\\033[0m rooms
 this version is just limited to only make .md files for \\033[36mfree rooms\\033[0m
 	"
