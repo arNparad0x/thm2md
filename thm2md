@@ -1,6 +1,10 @@
 #!/bin/bash
 
 #variants to replace markdown_github: markdown,markdown_mmd,markdown_phpextra,markdown_strict
+
+v=1.0
+cv=$(curl -s https://raw.githubusercontent.com/arNparad0x/thm2md/main/extra/.v)
+
 noans(){
 read -p 'with name & date?[y/N]:' top
 if [[ $top == 'y' ]]||[[ $top == 'Y' ]]
