@@ -7,7 +7,6 @@
 thm2md is a tool to make notes about tryhackme rooms,`while completing it`
 > use powerline font for better experience
 > 
-[comment]: <> (Thank you john hammond for the idea!)
 
 ## instillation
 
